@@ -31,7 +31,7 @@ async def ping(ctx):
     await ctx.send("Bot con song ne!")
 
 @bot.command()
-async def like(ctx, amount: int = 5):
+async def like(ctx, amount: int = 200):
     for emoji in ["❤️", "👍", "🔥", "😍", "🥰"][:amount]:
         try:
             await ctx.message.add_reaction(emoji)
