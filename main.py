@@ -1,11 +1,13 @@
-async def bang_nhan_huyet_ma(ctx, uid, tong_luot):
-    embed = discord.Embed(
-        title = "Đã Nhận Được Huyết Ma 🦋",
-        color = discord.Color.purple()
-    )
-    embed.add_field(name = "UID tài khoản", value = f"`{uid}`", inline = False)
-    embed.add_field(name = "Tổng lượt Huyết Ma", value = f"`{tong_luot}`", inline = False)
-    embed.set_footer(text = "Hệ thống buff like")
-    await ctx.send(embed = embed)
-    await bang_nhan_huyet_ma(ctx, "10909397193", "999999")
+ import requests
+import os
 
+@bot.command()
+async def bufflike(ctx, uid: str):
+    api = os.environ.get("BUFF_API") # lấy API từ Render
+    # gọi API
+    r = requests.get(f"{api}&uid={uid}")
+    if r.status_code == 200:
+        await ctx.send(f"✅ Đã buff like cho UID {uid} rồi nha!")
+    else:
+        await ctx.send("❌ API lỗi rồi, báo chủ bot đi!")
+        https://api-tenweb.com/bufflike?uid=123456&key=API_CUA_BA
