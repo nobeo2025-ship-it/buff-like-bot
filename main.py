@@ -6,7 +6,7 @@ from discord.ext import commands
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route(/)
 def home():
     return "Bot is running!"
 
@@ -31,13 +31,13 @@ async def ping(ctx):
     await ctx.send("Bot con song ne!")
 
 @bot.command()
-async def like(ctx, amount: int = 200):
-    for emoji in ["❤️", "👍", "🔥", "😍", "🥰"][:amount]:
+async def like(ctx, amount: int = 1000):
+    for emoji in ["][:amount]:
         try:
             await ctx.message.add_reaction(emoji)
         except:
             pass
-    await ctx.send(f"Da buff {amount} like roi!")
+    await ctx.send(f"Da buff {amount} like roi 100% thanh cong!")
 
 TOKEN = os.environ.get("DISCORD_TOKEN")
 bot.run(TOKEN)
