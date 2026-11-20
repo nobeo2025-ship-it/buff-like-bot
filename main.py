@@ -1,3 +1,41 @@
+import discord
+from discord.ext import commands
+import threading
+intents = discord.Intents.default()
+intents.message_content = True
+bot = commands.Bot(command_prefix="!", intents=intents)
+
+@bot.event
+async def on_ready():
+    print(f"Bot Discord đã online: {bot.user}")
+
+# Lệnh !tiktok @tên
+@bot.command(name="tiktok")
+async def tiktok_cmd(ctx, username: str = None):
+    if not username:
+        await ctx.send("Bà gõ vầy nè: `!tiktok @username`")
+        return
+    username = username.replace("@", "").strip()
+    # Sài lại hàm cũ của bà luôn
+    data, status = amdtsmodz().Sc_amdtsmodz_inf(username)
+    if not data.get("success"):
+        await ctx.send(f"Lỗi: {data.get('error')}")
+        return
+    u = data["user"]
+    await ctx.send(f"**TikTok: @{u['username']}**\nTên: {u['nickname']}\nFollow: {u['followers']} | Like: {u['likes']}\nBio: {u['bio']}\nLink: {u['url']}")
+
+# Lệnh !ping để test bot sống không
+@bot.command(name="ping")
+async def ping_cmd(ctx):
+    await ctx.send("Bot còn sống nè bà!")
+
+def run_discord():
+    bot.run(DISCORD_TOKEN)
+
+# Chạy Flask + Discord cùng lúc
+if __name__ == "__main__":
+    threading.Thread(target=run_discord, daemon=True).start()
+    amdtsmodz().run()
 import re, json, html, aiohttp, asyncio
 from flask import Flask, request, jsonify
 from datetime import datetime, timezone, timedelta
